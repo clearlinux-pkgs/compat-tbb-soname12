@@ -4,7 +4,7 @@
 #
 Name     : compat-tbb-soname12
 Version  : 2021.5.0
-Release  : 34
+Release  : 35
 URL      : https://github.com/01org/tbb/archive/v2021.5.0/tbb-2021.5.0.tar.gz
 Source0  : https://github.com/01org/tbb/archive/v2021.5.0/tbb-2021.5.0.tar.gz
 Summary  : C++ library for parallel programming on multi-core processors.
@@ -51,7 +51,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1640910034
+export SOURCE_DATE_EPOCH=1640911300
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -64,7 +64,7 @@ make  %{?_smp_mflags}  DEFAULTFLAGS="$CFLAGS"
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1640910034
+export SOURCE_DATE_EPOCH=1640911300
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/compat-tbb-soname12
 cp %{_builddir}/oneTBB-2021.5.0/LICENSE.txt %{buildroot}/usr/share/package-licenses/compat-tbb-soname12/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
@@ -72,6 +72,10 @@ pushd clr-build
 %make_install
 popd
 ## Remove excluded files
+rm -f %{buildroot}*/usr/lib64/libtbbmalloc.so.2
+rm -f %{buildroot}*/usr/lib64/libtbbmalloc.so.2.5
+rm -f %{buildroot}*/usr/lib64/libtbbmalloc_proxy.so.2
+rm -f %{buildroot}*/usr/lib64/libtbbmalloc_proxy.so.2.5
 rm -f %{buildroot}*/usr/include/oneapi/tbb.h
 rm -f %{buildroot}*/usr/include/oneapi/tbb/blocked_range.h
 rm -f %{buildroot}*/usr/include/oneapi/tbb/blocked_range2d.h
@@ -228,10 +232,6 @@ rm -f %{buildroot}*/usr/share/doc/TBB/README.md
 %defattr(-,root,root,-)
 /usr/lib64/libtbb.so.12
 /usr/lib64/libtbb.so.12.5
-/usr/lib64/libtbbmalloc.so.2
-/usr/lib64/libtbbmalloc.so.2.5
-/usr/lib64/libtbbmalloc_proxy.so.2
-/usr/lib64/libtbbmalloc_proxy.so.2.5
 
 %files license
 %defattr(0644,root,root,0755)
